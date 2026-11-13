@@ -14,7 +14,7 @@ import {
 
 const queryClient = new QueryClient();
 
-const socialCardImage = `${import.meta.env.BASE_URL}images/mwengwe-social-card.jpg`;
+const canonicalOrigin = 'https://mwengwempekansambo.com';
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
@@ -53,6 +53,8 @@ const pageMeta: Record<string, { title: string; description: string }> = {
 function PageMeta({ route }: { route: string }) {
   useEffect(() => {
     const content = pageMeta[route] ?? pageMeta['404'];
+    const canonicalUrl = new URL(window.location.pathname, canonicalOrigin).href;
+    const socialImageUrl = new URL('/images/mwengwe-social-card.jpg', canonicalOrigin).href;
     document.title = content.title;
     const setMeta = (selector: string, attribute: string, value: string) => {
       let element = document.head.querySelector(selector) as HTMLMetaElement | null;
@@ -64,19 +66,29 @@ function PageMeta({ route }: { route: string }) {
       }
       element.setAttribute(attribute, value);
     };
+    const setCanonical = (href: string) => {
+      let element = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!element) {
+        element = document.createElement('link');
+        element.rel = 'canonical';
+        document.head.appendChild(element);
+      }
+      element.href = href;
+    };
     setMeta('meta[name="description"]', 'content', content.description);
     setMeta('meta[property="og:title"]', 'content', content.title);
     setMeta('meta[property="og:description"]', 'content', content.description);
     setMeta('meta[property="og:type"]', 'content', 'website');
-    setMeta('meta[property="og:url"]', 'content', `${window.location.origin}${window.location.pathname}`);
-    setMeta('meta[property="og:image"]', 'content', new URL(socialCardImage, window.location.origin).href);
+    setMeta('meta[property="og:url"]', 'content', canonicalUrl);
+    setCanonical(canonicalUrl);
+    setMeta('meta[property="og:image"]', 'content', socialImageUrl);
     setMeta('meta[property="og:image:width"]', 'content', '1200');
     setMeta('meta[property="og:image:height"]', 'content', '630');
     setMeta('meta[property="og:image:alt"]', 'content', 'Mwengwe Mpekansambo smiling beneath vivid autumn leaves, with her name and the phrase Finance, stories and possibility.');
     setMeta('meta[name="twitter:card"]', 'content', 'summary_large_image');
     setMeta('meta[name="twitter:title"]', 'content', content.title);
     setMeta('meta[name="twitter:description"]', 'content', content.description);
-    setMeta('meta[name="twitter:image"]', 'content', new URL(socialCardImage, window.location.origin).href);
+    setMeta('meta[name="twitter:image"]', 'content', socialImageUrl);
     setMeta('meta[name="twitter:image:alt"]', 'content', 'Mwengwe Mpekansambo smiling beneath vivid autumn leaves, with her name and the phrase Finance, stories and possibility.');
   }, [route]);
   return null;
