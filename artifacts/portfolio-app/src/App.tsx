@@ -228,6 +228,16 @@ function HomePage() {
               <h2 id="quick-facts-title" className="content-heading">Where I’m coming from</h2>
             </div>
           </div>
+          <figure className="quick-facts-portrait">
+            <img
+              src={`${import.meta.env.BASE_URL}images/mwengwe-scarf-leaves.jpg`}
+              alt="Mwengwe smiling in an olive scarf with autumn leaves in her hair."
+              width={960}
+              height={1200}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
           <div className="fact-strip">
             <article className="fact-card">
               <div className="fact-kicker">Now · Berkeley</div>
