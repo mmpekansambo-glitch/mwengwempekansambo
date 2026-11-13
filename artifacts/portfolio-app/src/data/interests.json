@@ -1,0 +1,42 @@
+[
+  {
+    "id": "financial-stem",
+    "title": "Financial education & STEM",
+    "image": "financial-stem.jpg",
+    "alt": "Two women reviewing a notebook and budget charts at a sunlit wooden table beside a laptop and plants",
+    "items": ["Women and girls’ financial education", "Women in STEM"],
+    "note": "Opportunity starts with access to knowledge."
+  },
+  {
+    "id": "zambia-agriculture",
+    "title": "Zambia, agriculture & politics",
+    "image": "zambia-agriculture.jpg",
+    "alt": "A farmer walking between rows of vegetables under a wide sky with low hills in the distance",
+    "items": ["Agriculture", "African politics", "Home country Zambia"],
+    "note": "Home, and the systems that feed and govern it."
+  },
+  {
+    "id": "stories",
+    "title": "Literature & stories",
+    "image": "stories.jpg",
+    "alt": "Open books, a notebook with a fountain pen, and a mug on a wooden windowsill in soft light",
+    "items": ["Reading fiction", "Writing and editing"],
+    "note": "More than 175 novels in 2024, and around 120 in 2025."
+  },
+  {
+    "id": "photography-plants",
+    "title": "Photography & plants",
+    "image": "photography-plants.jpg",
+    "alt": "A vintage film camera on a potting bench among ferns, terracotta pots, and a green watering can",
+    "items": ["Photography", "Plants"],
+    "note": "Paying attention, one leaf and frame at a time."
+  },
+  {
+    "id": "textile-crafts",
+    "title": "Sewing & crochet",
+    "image": "textile-crafts.jpg",
+    "alt": "A cream crochet square with a wooden hook, thread spools, and balls of wool on linen",
+    "items": ["Sewing", "Crochet"],
+    "note": "Including a crocheted take on a Birkin 35."
+  }
+]
