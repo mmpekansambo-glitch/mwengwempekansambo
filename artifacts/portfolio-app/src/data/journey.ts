@@ -89,8 +89,8 @@ export const experience: JourneyEntry[] = [
   {
     organization: 'Mwedi Innovations Limited',
     location: 'Zambia',
-    role: 'Director & Co-founder',
-    bullets: ['Co-founded an agriculture company focused on local sourcing and ethical management of plant and animal produce'],
+    role: 'Director',
+    bullets: ['Director of an agriculture company in Zambia focused on local sourcing and ethical management of plant and animal produce'],
     marginNote: '',
   },
 ];
@@ -123,7 +123,7 @@ export const beyondCards: BeyondCard[] = [
   { headline: '175+', line: 'novels read in 2024, and around 120 in 2025' },
   { headline: 'Birkin 35', line: 'a crocheted mock Birkin, currently on my hook' },
   { headline: '25+', line: 'Women in Finance lunches with executives in finance and tech' },
-  { headline: 'Zambia', line: 'co-founded an ethical agriculture company' },
+  { headline: 'Zambia', line: 'director of an ethical agriculture company' },
 ];
 
 export const linkedInUrl = 'https://www.linkedin.com/in/mmpekansambo';

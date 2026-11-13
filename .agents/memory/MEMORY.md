@@ -1,3 +1,4 @@
 - [Dual-site portfolio routing](portfolio-routing.md) — keep the React artifact at Replit `/`; keep the Jekyll source at the repository root for GitHub Pages.
 - [Portfolio visual direction](portfolio-visual-direction.md) — the React portfolio is whimsical, creative, bookish, and crisp, with a calm ivory/plum/rose/sage direction.
 - [Portfolio contact privacy](portfolio-contact-privacy.md) — keep personal email private and use LinkedIn as the public contact route.
+- [Portfolio role wording](portfolio-role-wording.md) — describe the Mwedi role as Director only; do not reintroduce founder or team-behind wording.

@@ -253,7 +253,7 @@ function HomePage() {
             <article className="fact-card">
               <div className="fact-kicker">Always · Zambia</div>
               <h3>Grounded in place</h3>
-              <p>Part of the team behind an agriculture company focused on local sourcing and ethical management.</p>
+              <p>Director of an agriculture company focused on local sourcing and ethical management.</p>
             </article>
           </div>
         </section>
