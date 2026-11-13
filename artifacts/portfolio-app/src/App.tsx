@@ -166,7 +166,7 @@ function HomePage() {
         <section className="home-hero" aria-labelledby="home-title">
           <div className="hero-copy-column">
             <p className="chapter-label">Chapter one</p>
-            <h1 className="hero-title" id="home-title">From numbers<br />to narrative<br />to <em>nexus</em></h1>
+            <h1 className="hero-title" id="home-title">Somewhere between<br />the ledger and<br />the <em>library</em></h1>
             <p className="hero-copy">
               I’m Mwengwe. I’m drawn to the places where capital, creativity, and people’s everyday lives meet, and to what becomes possible when they work together. I’ve followed that curiosity from Stanford to supporting the advisement of technology and media companies, and working alongside an agricultural business in Zambia, and now an MBA at Berkeley Haas.
             </p>
