@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, Moon, Sun } from 'lucide-react';
 import blogPosts from 'virtual:blog-posts';
 import { BlogArticleView, BlogIndexView, BlogPostCards } from '@/components/blog';
+import { JourneyActions, JourneyResume } from '@/components/JourneyResume';
 import { PalmFrondCluster } from '@/components/PalmFronds';
 import interestTiles from '@/data/interests.json';
 import {
@@ -420,22 +421,6 @@ function BlogPostRoute() {
   );
 }
 
-const journeyEntries: Array<{
-  organization: string;
-  description: string;
-  endDate?: string;
-  endDateTime?: string;
-  endDateQualifier?: string;
-}> = [
-  { organization: 'UC Berkeley Haas', description: 'MBA candidate.', endDate: 'May 2027', endDateTime: '2027-05', endDateQualifier: 'Expected' },
-  { organization: 'Gen Digital', description: 'Associate Intern, Corporate Development & Strategic Partnerships, analyzing fintech acquisitions and exploring agentic AI.', endDate: 'August 2026', endDateTime: '2026-08' },
-  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Associate, closing 10 M&A, debt, and equity transactions totaling $60B+.', endDate: 'June 2025', endDateTime: '2025-06' },
-  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Analyst, supporting financial advisory, recruitment, and inclusion initiatives.', endDate: 'May 2024', endDateTime: '2024-05' },
-  { organization: 'Stanford University', description: 'B.A. in Economics with a minor in Creative Writing.', endDate: 'June 2022', endDateTime: '2022-06' },
-  { organization: 'Hotchkis & Wiley', description: 'Asset Management Intern, researching industry risks and presenting an investment pitch on Ingredion.', endDate: 'August 2021', endDateTime: '2021-08' },
-  { organization: 'Mwedi Innovations Limited', description: 'Director and co-founder of an agriculture company in Zambia focused on local sourcing and ethical produce management.' },
-];
-
 function JourneyPage() {
   return (
     <>
@@ -445,24 +430,9 @@ function JourneyPage() {
           <h1 className="content-heading">Journey</h1>
           <p>I'm interested in how people build a life, a livelihood, and a future—and in the ideas and institutions that can help them do it.</p>
           <p>I worked in TMT investment banking at Jefferies, advising on financial transactions and capital-raising. My interests also reach beyond finance: I'm passionate about women's financial education, particularly in Zambia, women's participation in STEM, and ethical agriculture.</p>
+          <JourneyActions />
         </section>
-        <ol className="journey-list" aria-label="Education and professional experience" role="list">
-          {journeyEntries.map(({ organization, description, endDate, endDateTime, endDateQualifier }, index) => (
-            <li
-              className={`journey-entry ${endDate ? 'journey-entry--dated' : 'journey-entry--undated'}`}
-              key={`${organization}-${index}`}
-            >
-              <p><strong>{organization}</strong> — {description}</p>
-              {endDate && endDateTime && (
-                <div className="journey-date-group">
-                  <time className="journey-end-date" dateTime={endDateTime}>{endDate}</time>
-                  {endDateQualifier && <span className="journey-date-qualifier">{endDateQualifier}</span>}
-                </div>
-              )}
-            </li>
-          ))}
-        </ol>
-        <p className="journey-note">Listed newest first.</p>
+        <JourneyResume />
       </main>
     </>
   );

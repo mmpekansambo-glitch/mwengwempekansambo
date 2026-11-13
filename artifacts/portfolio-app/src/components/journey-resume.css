@@ -1,0 +1,72 @@
+.jr-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.jr-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 20px; border-radius: 999px; text-decoration: none;
+  font: 600 .86rem/1.2 var(--app-font-sans);
+  border: 1.5px solid hsl(var(--plum));
+  transition: background-color 180ms ease, color 180ms ease;
+}
+.jr-pill--solid { background: hsl(var(--plum)); color: hsl(var(--primary-foreground)); }
+.jr-pill--solid:hover { background: hsl(var(--plum) / .88); }
+.jr-pill--outline { color: hsl(var(--heading-accent)); background: transparent; border-color: hsl(var(--heading-accent)); }
+.jr-pill--outline:hover { background: hsl(var(--heading-accent) / .08); }
+
+.jr { padding-bottom: 96px; }
+.jr-section { margin-bottom: 64px; }
+.jr-heading {
+  margin: 0 0 28px; padding-bottom: 12px;
+  font: 400 clamp(1.9rem, 3.4vw, 2.5rem)/1.1 var(--app-font-serif);
+  letter-spacing: -.035em; color: hsl(var(--heading-accent));
+  border-bottom: 1px solid hsl(var(--rose-clay) / .7);
+}
+.jr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+.jr-entry { display: grid; grid-template-columns: minmax(0, 1fr) 170px; column-gap: 32px; align-items: start; }
+.jr-entry-main { min-width: 0; }
+.jr-entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.jr-entry-titles { min-width: 0; }
+.jr-org { margin: 0; font: 500 1.35rem/1.25 var(--app-font-serif); color: hsl(var(--heading-accent)); letter-spacing: -.02em; }
+.jr-role { margin: 4px 0 0; font: italic 400 1.02rem/1.45 var(--app-font-serif); color: hsl(var(--olive)); }
+.jr-date {
+  flex: 0 0 auto; white-space: nowrap; margin-top: 3px;
+  padding: 6px 12px; border-radius: 999px;
+  background: hsl(var(--dusty-rose)); color: hsl(var(--plum));
+  border: 1px solid hsl(var(--rose-clay) / .5);
+  font: 600 .72rem/1 var(--app-font-sans); letter-spacing: .03em;
+}
+.jr-bullets { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
+.jr-bullets li { position: relative; padding-left: 20px; color: hsl(var(--muted-foreground)); line-height: 1.7; font-size: .96rem; }
+.jr-bullets li::before {
+  content: ''; position: absolute; left: 3px; top: .68em;
+  width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--rose-clay));
+}
+.jr-margin-note {
+  margin: 0; padding-top: 6px;
+  font: 1.55rem/1.15 var(--app-font-script); color: hsl(var(--heading-accent));
+  transform: rotate(-3deg); transform-origin: left top;
+}
+
+.jr-subtitle { margin: -16px 0 28px; font: italic 400 1rem var(--app-font-serif); color: hsl(var(--olive)); }
+.jr-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 22px; }
+.jr-card {
+  min-width: 0; padding: 48px 22px 30px; text-align: center;
+  border-radius: 999px 999px 12px 12px; border: 1.5px solid;
+}
+.jr-card--rose { background: #FFFFFF; border-color: hsl(var(--rose-clay)); }
+.jr-card--sage { background: hsl(84.7 19.5% 88%); border-color: hsl(var(--sage)); }
+.jr-card-headline { margin: 0 0 10px; font: italic 400 clamp(2rem, 4vw, 2.6rem)/1.05 var(--app-font-serif); color: hsl(var(--plum)); letter-spacing: -.03em; overflow-wrap: anywhere; }
+.jr-card-line { margin: 0; color: hsl(331.6 17% 30%); font-size: .9rem; line-height: 1.55; }
+.dark .jr-card--rose { background: hsl(var(--card)); }
+.dark .jr-card--sage { background: hsl(var(--sage-mist)); }
+.dark .jr-card-headline { color: hsl(var(--heading-accent)); }
+.dark .jr-card-line { color: hsl(var(--muted-foreground)); }
+.dark .jr-date { background: hsl(var(--dusty-rose)); color: hsl(var(--plum)); }
+
+@media (max-width: 760px) {
+  .jr { padding-bottom: 68px; }
+  .jr-section { margin-bottom: 52px; }
+  .jr-entry { grid-template-columns: minmax(0, 1fr); }
+  .jr-entry-head { flex-direction: column; gap: 10px; }
+  .jr-date { margin-top: 0; }
+  .jr-margin-note { padding-top: 12px; }
+  .jr-cards { grid-template-columns: minmax(0, 1fr); max-width: 340px; margin-inline: auto; }
+}
