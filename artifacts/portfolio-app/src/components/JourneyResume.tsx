@@ -1,9 +1,25 @@
 import resumeAvailable from 'virtual:resume-available';
-import { beyondCards, education, experience, linkedInUrl, type JourneyEntry } from '@/data/journey';
+import { beyondCards, education, experience, linkedInUrl, type JourneyEntry, type JourneyRole } from '@/data/journey';
 import './journey-resume.css';
 
 function slug(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function DatePill({ role }: { role: JourneyRole }) {
+  if (!role.date) return null;
+  return role.dateTime && !role.startDateTime
+    ? <time className="jr-date" dateTime={role.dateTime}>{role.date}</time>
+    : <span className="jr-date">{role.date}</span>;
+}
+
+function Bullets({ bullets }: { bullets: string[] }) {
+  if (bullets.length === 0) return null;
+  return (
+    <ul className="jr-bullets">
+      {bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+    </ul>
+  );
 }
 
 function Entry({ entry, id }: { entry: JourneyEntry; id: string }) {
@@ -14,18 +30,24 @@ function Entry({ entry, id }: { entry: JourneyEntry; id: string }) {
         <div className="jr-entry-head">
           <div className="jr-entry-titles">
             <h3 className="jr-org">{entry.organization}</h3>
+            <p className="jr-location">{entry.location}</p>
             <p className="jr-role">{entry.role}</p>
           </div>
-          {entry.date && (
-            entry.dateTime
-              ? <time className="jr-date" dateTime={entry.dateTime}>{entry.date}</time>
-              : <span className="jr-date">{entry.date}</span>
-          )}
+          <DatePill role={entry} />
         </div>
-        {entry.bullets.length > 0 && (
-          <ul className="jr-bullets">
-            {entry.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-          </ul>
+        <Bullets bullets={entry.bullets} />
+        {entry.subRoles && (
+          <ol className="jr-subroles" aria-label={`${entry.organization} roles`} role="list">
+            {entry.subRoles.map((subRole) => (
+              <li key={subRole.role}>
+                <div className="jr-entry-head">
+                  <h4 className="jr-role">{subRole.role}</h4>
+                  <DatePill role={subRole} />
+                </div>
+                <Bullets bullets={subRole.bullets} />
+              </li>
+            ))}
+          </ol>
         )}
       </div>
       {note && <p className="jr-margin-note">{note}</p>}
