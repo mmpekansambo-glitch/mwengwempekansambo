@@ -1,4 +1,3 @@
-import resumeAvailable from 'virtual:resume-available';
 import { beyondCards, education, experience, linkedInUrl, type JourneyEntry, type JourneyRole } from '@/data/journey';
 import './journey-resume.css';
 
@@ -71,12 +70,7 @@ function Section({ title, id, entries }: { title: string; id: string; entries: J
 export function JourneyActions() {
   return (
     <div className="jr-actions">
-      {resumeAvailable && (
-        <a className="jr-pill jr-pill--solid" href={`${import.meta.env.BASE_URL}resume.pdf`} download data-testid="link-download-resume">
-          Download my résumé ↓
-        </a>
-      )}
-      <a className="jr-pill jr-pill--outline" href={linkedInUrl} target="_blank" rel="noopener noreferrer" data-testid="link-journey-linkedin">
+      <a className="jr-pill jr-pill--solid" href={linkedInUrl} target="_blank" rel="noopener noreferrer" data-testid="link-journey-linkedin">
         Connect on LinkedIn
       </a>
     </div>

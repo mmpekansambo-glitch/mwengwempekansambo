@@ -17,4 +17,4 @@ Create a Markdown file in `artifacts/portfolio-app/posts/` with `title`, `date`,
 
 ## Journey page and résumé
 
-All Journey (`/experience`) content — roles, dates, bullets, optional handwritten `marginNote`s, and the "Beyond the résumé" cards — lives in `src/data/journey.ts`. To show the "Download my résumé" button, add `public/resume.pdf`; the button appears after a rebuild (the dev server reloads automatically).
+All Journey (`/experience`) content — roles, dates, bullets, optional handwritten `marginNote`s, and the "Beyond the résumé" cards — lives in `src/data/journey.ts`.

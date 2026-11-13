@@ -1,5 +1,4 @@
 import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -194,33 +193,6 @@ function blogPostsPlugin(): Plugin {
   };
 }
 
-function resumeAvailabilityPlugin(): Plugin {
-  const publicId = 'virtual:resume-available';
-  const resolvedId = `\0${publicId}`;
-  const resumePath = path.join(appDirectory, 'public/resume.pdf');
-
-  return {
-    name: 'portfolio-resume-availability',
-    resolveId(id) {
-      if (id === publicId) return resolvedId;
-    },
-    load(id) {
-      if (id === resolvedId) return `export default ${existsSync(resumePath)};`;
-    },
-    configureServer(server) {
-      server.watcher.add(path.dirname(resumePath));
-      const reloadAvailability = (filePath: string) => {
-        if (path.resolve(filePath) !== resumePath) return;
-        const module = server.moduleGraph.getModuleById(resolvedId);
-        if (module) server.moduleGraph.invalidateModule(module);
-        server.ws.send({ type: 'full-reload' });
-      };
-      server.watcher.on('add', reloadAvailability);
-      server.watcher.on('unlink', reloadAvailability);
-    },
-  };
-}
-
 function staticRoutePages(): Plugin {
   let includeDrafts = true;
   return {
@@ -262,7 +234,7 @@ function staticRoutePages(): Plugin {
 }
 
 export default defineConfig(async () => {
-  const plugins: PluginOption[] = [react(), tailwindcss(), blogPostsPlugin(), resumeAvailabilityPlugin(), staticRoutePages()];
+  const plugins: PluginOption[] = [react(), tailwindcss(), blogPostsPlugin(), staticRoutePages()];
 
   if (process.env.REPL_ID) {
     const { default: runtimeErrorOverlay } = await import(

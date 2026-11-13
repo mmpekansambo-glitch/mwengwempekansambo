@@ -8,8 +8,6 @@
 }
 .jr-pill--solid { background: hsl(var(--plum)); color: hsl(var(--primary-foreground)); }
 .jr-pill--solid:hover { background: hsl(var(--plum) / .88); }
-.jr-pill--outline { color: hsl(var(--heading-accent)); background: transparent; border-color: hsl(var(--heading-accent)); }
-.jr-pill--outline:hover { background: hsl(var(--heading-accent) / .08); }
 
 .jr { padding-bottom: 96px; }
 .jr-section { margin-bottom: 64px; }
