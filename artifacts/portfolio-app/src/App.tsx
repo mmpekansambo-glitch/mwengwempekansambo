@@ -47,7 +47,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   },
   '/contact': {
     title: 'Contact — Mwengwe Mpekansambo',
-    description: 'Get in touch with Mwengwe Mpekansambo via her approved public Stanford alumni email.',
+    description: 'Get in touch with Mwengwe Mpekansambo on LinkedIn.',
   },
   '404': {
     title: 'Page not found — Mwengwe Mpekansambo',
@@ -122,7 +122,7 @@ function Header({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
           <Link
             key={item.href}
             href={item.href}
-            className="nav-link"
+            className={`nav-link ${item.href === '/contact' ? 'nav-link-contact' : ''}`}
             aria-current={location === item.href ? 'page' : undefined}
             data-testid={`link-nav-${item.label.toLowerCase()}`}
           >
@@ -144,31 +144,95 @@ function Header({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
   );
 }
 
-function Footer({ isHome }: { isHome: boolean }) {
+function Footer() {
   return (
     <footer className="site-footer">
-      <span>{isHome ? '© Mwengwe Mpekansambo' : `© ${new Date().getFullYear()} Mwengwe Mpekansambo`}</span>
+      <span className="footer-copyright">© {new Date().getFullYear()} Mwengwe Mpekansambo</span>
+      <span className="footer-fin">— fin —</span>
     </footer>
   );
 }
 
+function PalmFrondCluster({
+  className,
+  small = false,
+}: {
+  className: string;
+  small?: boolean;
+}) {
+  const symbolId = `${className.replace(/[^a-z0-9]+/gi, '-')}-frond`;
+  const leafletStations = [450, 400, 350, 300, 250, 200, 150, 100, 55];
+  const frondColors = ['palm-sage', 'palm-olive', 'palm-mist', 'palm-sage'];
+  const frondCount = small ? 2 : 4;
+
+  return (
+    <svg className={className} viewBox="0 0 560 300" fill="none" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id={`${symbolId}-shadow`} x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1.4" floodColor="#344333" floodOpacity=".12" />
+        </filter>
+        <g id={symbolId} className="palm-frond-shape" filter={`url(#${symbolId}-shadow)`}>
+          <path className="palm-stem" d="M530 42C423 75 259 159 24 245" />
+          {leafletStations.map((x, index) => {
+            const y = 80 + index * 20;
+            const length = 54 - index * 3.7;
+            return (
+              <g className="palm-leaflets" key={x}>
+                <path
+                  className="palm-leaf"
+                  d={`M${x} ${y} C${x - 2} ${y - length * 0.45} ${x - length * 0.42} ${y - length * 0.84} ${x - length} ${y - length} C${x - length * 0.68} ${y - length * 0.48} ${x - length * 0.34} ${y - length * 0.12} ${x} ${y}Z`}
+                />
+                <path className="palm-vein" d={`M${x} ${y}Q${x - length * 0.48} ${y - length * 0.62} ${x - length} ${y - length}`} />
+                <path
+                  className="palm-leaf"
+                  d={`M${x} ${y} C${x + length * 0.32} ${y + length * 0.08} ${x + length * 0.72} ${y + length * 0.24} ${x + length} ${y + length * 0.55} C${x + length * 0.61} ${y + length * 0.37} ${x + length * 0.27} ${y + length * 0.14} ${x} ${y}Z`}
+                />
+                <path className="palm-vein" d={`M${x} ${y}Q${x + length * 0.5} ${y + length * 0.27} ${x + length} ${y + length * 0.55}`} />
+              </g>
+            );
+          })}
+        </g>
+      </defs>
+      {Array.from({ length: frondCount }, (_, index) => (
+        <g
+          key={index}
+          transform={`translate(0 ${index * (small ? 54 : 47)}) rotate(${[-9, -3, 4, 10][index]} 530 42) scale(${1 - index * 0.045} ${1 - index * 0.025})`}
+        >
+          <g className={`${frondColors[index]} frond-sway frond-sway-${index + 1}`}>
+            <use href={`#${symbolId}`} className="frond-flutter" />
+          </g>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 function HomePage() {
+  const publishedPosts = blogPosts
+    .filter((post) => !post.draft)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 5);
+
   return (
     <>
       <PageMeta route="/" />
       <main className="page-content" id="page-content">
         <section className="home-hero" aria-labelledby="home-title">
-          <div>
+          <div className="hero-copy-column">
+            <p className="chapter-label">Chapter one</p>
             <h1 className="hero-title" id="home-title">From numbers<br />to narrative<br />to <em>nexus</em></h1>
             <p className="hero-copy">
               I’m Mwengwe. I’m drawn to the places where capital, creativity, and people’s everyday lives meet, and to what becomes possible when they work together. I’ve followed that curiosity from Stanford to supporting the advisement of technology and media companies, and working alongside an agricultural business in Zambia, and now an MBA at Berkeley Haas.
             </p>
             <div className="hero-actions">
               <Link href="/experience" className="button-primary" data-testid="link-hero-journey">Explore my journey <ArrowRight size={16} /></Link>
-              <Link href="/interests" className="text-link" data-testid="link-hero-interests">What I'm curious about</Link>
+              <span className="script-accent">curiosity, always</span>
             </div>
+            <PalmFrondCluster className="home-bottom-fronds" small />
           </div>
           <div className="hero-art">
+            <PalmFrondCluster className="hero-fronds" />
+            <PalmFrondCluster className="hero-fronds-mobile" small />
             <figure className="portrait-paper">
               <img
                 className="portrait-photo"
@@ -184,42 +248,80 @@ function HomePage() {
         </section>
 
         <section className="home-note" aria-labelledby="home-note-title">
-          <div>
-            <h2 id="home-note-title">Good questions<br />make room.</h2>
+          <div className="home-note-photo">
+            <img
+              src={`${import.meta.env.BASE_URL}images/mwengwe-autumn.jpg`}
+              alt="Mwengwe smiling beneath autumn leaves."
+              width={700}
+              height={467}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
-          <div className="home-note-copy">
-            <p>
-              Every chapter has started with the same question: who gets access, and what changes when they do? I’ve asked it of companies raising capital, of farmers bringing goods to market, and of women in Zambia building something of their own.
-            </p>
-            <p>
-              I bring analytical, critical, and creative thinking to my work: I like understanding how systems work, and I care about how we tell the stories inside them.
-            </p>
+          <div className="home-note-content">
+            <h2 id="home-note-title">Good questions<br />make room.</h2>
+            <div className="home-note-copy">
+              <p>
+                Every chapter has started with the same question: who gets access, and what changes when they do? I’ve asked it of companies raising capital, of farmers bringing goods to market, and of women in Zambia building something of their own.
+              </p>
+              <p>
+                I bring analytical, critical, and creative thinking to my work: I like understanding how systems work, and I care about how we tell the stories inside them.
+              </p>
+            </div>
+            <Link href="/experience" className="button-primary">Explore my journey <ArrowRight size={16} /></Link>
           </div>
         </section>
 
         <section className="quick-facts" aria-labelledby="quick-facts-title">
           <div className="quick-facts-top">
             <div>
+              <span className="section-ornament" aria-hidden="true">❦</span>
               <h2 id="quick-facts-title" className="content-heading">Where I’m coming from</h2>
             </div>
           </div>
           <div className="fact-strip">
             <article className="fact-card">
+              <span className="fact-number">01</span>
               <div className="fact-kicker">Now · Berkeley</div>
               <h3>Questioning the Status Quo</h3>
               <p>MBA candidate at UC Berkeley Haas.</p>
             </article>
             <article className="fact-card">
+              <span className="fact-number">02</span>
               <div className="fact-kicker">Before · Stanford</div>
               <h3>Numbers &amp; narrative</h3>
               <p>BA in Economics with a minor in Creative Writing.</p>
             </article>
             <article className="fact-card">
+              <span className="fact-number">03</span>
               <div className="fact-kicker">Always · Zambia</div>
               <h3>Grounded in place</h3>
               <p>Part of the team behind an agriculture company focused on local sourcing and ethical management.</p>
             </article>
           </div>
+        </section>
+
+        <section className="home-blog" aria-labelledby="home-blog-title">
+          <div className="home-blog-heading">
+            <span className="section-ornament" aria-hidden="true">❦</span>
+            <h2 id="home-blog-title">From the blog</h2>
+            <p>Notes on books, finance, Zambia, and whatever I'm making with my hands.</p>
+            <Link href="/blog" className="button-primary">Read the blog <ArrowRight size={16} /></Link>
+          </div>
+          {publishedPosts.length > 0 && (
+            <div className="book-shelf" aria-label="Recent blog posts">
+              {publishedPosts.map((post, index) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className={`book-spine book-spine-${index % 5}`}
+                  aria-label={`Read ${post.title}`}
+                >
+                  <span>{post.title}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
       </main>
     </>
@@ -452,7 +554,6 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function Router({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
-  const [location] = useLocation();
   return (
     <div className="portfolio-shell">
       <a className="skip-link" href="#page-content">Skip to main content</a>
@@ -470,7 +571,7 @@ function Router({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
           <Route component={NotFoundPage} />
         </Switch>
       </RoutedErrorBoundary>
-      <Footer isHome={location === '/'} />
+      <Footer />
     </div>
   );
 }

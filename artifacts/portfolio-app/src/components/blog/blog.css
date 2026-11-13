@@ -81,6 +81,7 @@
 .blog-card-title {
   display: block;
   margin: 16px 0 9px;
+  color: hsl(var(--heading-accent));
   font: 400 clamp(1.55rem, 2.5vw, 2rem)/1.12 var(--app-font-serif);
   letter-spacing: -.035em;
 }
@@ -217,7 +218,7 @@
 .blog-prose h3,
 .blog-prose h4 {
   margin: 2.1em 0 .65em;
-  color: hsl(var(--foreground));
+  color: hsl(var(--heading-accent));
   font-family: var(--app-font-serif);
   font-weight: 400;
   line-height: 1.2;
