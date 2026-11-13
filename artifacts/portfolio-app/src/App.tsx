@@ -230,19 +230,16 @@ function HomePage() {
           </div>
           <div className="fact-strip">
             <article className="fact-card">
-              <span className="fact-number">01</span>
               <div className="fact-kicker">Now · Berkeley</div>
               <h3>Questioning the Status Quo</h3>
               <p>MBA candidate at UC Berkeley Haas.</p>
             </article>
             <article className="fact-card">
-              <span className="fact-number">02</span>
               <div className="fact-kicker">Before · Stanford</div>
               <h3>Numbers &amp; narrative</h3>
               <p>BA in Economics with a minor in Creative Writing.</p>
             </article>
             <article className="fact-card">
-              <span className="fact-number">03</span>
               <div className="fact-kicker">Always · Zambia</div>
               <h3>Grounded in place</h3>
               <p>Part of the team behind an agriculture company focused on local sourcing and ethical management.</p>
