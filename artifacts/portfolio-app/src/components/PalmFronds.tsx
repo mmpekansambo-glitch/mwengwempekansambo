@@ -6,7 +6,11 @@ export function PalmFrondCluster({
   small?: boolean;
 }) {
   const symbolId = `${className.replace(/[^a-z0-9]+/gi, '-')}-frond`;
-  const leafletStations = Array.from({ length: 18 }, (_, index) => (index + 1) / 20);
+  // Denser stations near the tip keep the final stretch finely feathered.
+  const leafletStations = Array.from(
+    { length: 28 },
+    (_, index) => 0.05 + 0.949 * (1 - (1 - index / 27) ** 1.35),
+  );
   const frondColors = ['palm-sage', 'palm-olive', 'palm-mist', 'palm-sage'];
   const frondCount = small ? 2 : 4;
 
@@ -17,24 +21,35 @@ export function PalmFrondCluster({
           <feDropShadow dx="0" dy="1" stdDeviation="1.4" floodColor="#344333" floodOpacity=".12" />
         </filter>
         <g id={symbolId} filter={`url(#${symbolId}-shadow)`}>
-          <path className="palm-stem" d="M530 42C423 75 259 159 24 245" />
+          <path className="palm-stem" d="M530 41C423 74 259 158.5 24 245C259 159.5 423 76 530 43Z" />
           {leafletStations.map((t) => {
             const u = 1 - t;
             const x = u ** 3 * 530 + 3 * u ** 2 * t * 423 + 3 * u * t ** 2 * 259 + t ** 3 * 24;
             const y = u ** 3 * 42 + 3 * u ** 2 * t * 75 + 3 * u * t ** 2 * 159 + t ** 3 * 245;
-            const length = 28 + 46 * Math.sin(t * Math.PI);
+            const length = (35 + 45 * Math.sin(t * Math.PI)) * Math.min(1, ((1 - t) / 0.38) ** 0.6);
+            const tangentX = 3 * u ** 2 * (423 - 530) + 6 * u * t * (259 - 423) + 3 * t ** 2 * (24 - 259);
+            const tangentY = 3 * u ** 2 * (75 - 42) + 6 * u * t * (159 - 75) + 3 * t ** 2 * (245 - 159);
+            const heading = Math.atan2(tangentY, tangentX);
+            const spread = 1.05 * Math.min(1, (1 - t) / 0.3);
+            const width = length * 0.085;
             return (
               <g key={t}>
-                <path
-                  className="palm-leaf"
-                  d={`M${x} ${y} C${x - 2} ${y - length * 0.45} ${x - length * 0.42} ${y - length * 0.84} ${x - length} ${y - length} C${x - length * 0.68} ${y - length * 0.48} ${x - length * 0.34} ${y - length * 0.12} ${x} ${y}Z`}
-                />
-                <path className="palm-vein" d={`M${x} ${y}Q${x - length * 0.48} ${y - length * 0.62} ${x - length} ${y - length}`} />
-                <path
-                  className="palm-leaf"
-                  d={`M${x} ${y} C${x + length * 0.32} ${y + length * 0.08} ${x + length * 0.72} ${y + length * 0.24} ${x + length} ${y + length * 0.55} C${x + length * 0.61} ${y + length * 0.37} ${x + length * 0.27} ${y + length * 0.14} ${x} ${y}Z`}
-                />
-                <path className="palm-vein" d={`M${x} ${y}Q${x + length * 0.5} ${y + length * 0.27} ${x + length} ${y + length * 0.55}`} />
+                {[-1, 1].map((side) => {
+                  const angle = heading + side * spread;
+                  const dx = Math.cos(angle) * length;
+                  const dy = Math.sin(angle) * length;
+                  const nx = -Math.sin(angle) * width;
+                  const ny = Math.cos(angle) * width;
+                  return (
+                    <g key={side}>
+                      <path
+                        className="palm-leaf"
+                        d={`M${x} ${y}C${x + dx * 0.25 + nx} ${y + dy * 0.25 + ny} ${x + dx * 0.7 + nx} ${y + dy * 0.7 + ny} ${x + dx} ${y + dy}C${x + dx * 0.66 - nx} ${y + dy * 0.66 - ny} ${x + dx * 0.26 - nx * 0.4} ${y + dy * 0.26 - ny * 0.4} ${x} ${y}Z`}
+                      />
+                      <path className="palm-vein" style={{ strokeWidth: Math.min(0.65, width * 0.3) }} d={`M${x} ${y}Q${x + dx * 0.5} ${y + dy * 0.5} ${x + dx} ${y + dy}`} />
+                    </g>
+                  );
+                })}
               </g>
             );
           })}

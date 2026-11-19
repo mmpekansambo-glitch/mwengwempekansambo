@@ -235,7 +235,7 @@
 .palm-sage { color: hsl(var(--sage)); }
 .palm-olive { color: hsl(var(--olive)); }
 .palm-mist { color: hsl(var(--sage-mist)); }
-.palm-stem { stroke: currentColor; stroke-width: 2; stroke-linecap: round; opacity: .9; }
+.palm-stem { fill: currentColor; opacity: .9; }
 .palm-leaf { fill: currentColor; opacity: .54; }
 .palm-vein { fill: none; stroke: hsl(var(--background) / .48); stroke-width: .65; stroke-linecap: round; opacity: .75; }
 .frond-sway { transform-box: fill-box; transform-origin: 100% 0%; animation: frond-sway 6s ease-in-out infinite; }
