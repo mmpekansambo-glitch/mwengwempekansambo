@@ -22,11 +22,12 @@ import {
 const queryClient = new QueryClient();
 
 const canonicalOrigin = 'https://mwengwempekansambo.com';
+const hasPublishedPosts = blogPosts.some((post) => !post.draft);
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/experience', label: 'Journey' },
   { href: '/interests', label: 'Interests' },
-  { href: '/blog', label: 'Blog' },
+  ...(hasPublishedPosts ? [{ href: '/blog', label: 'Blog' }] : []),
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -258,7 +259,7 @@ function HomePage() {
           </div>
         </section>
 
-        <section className="home-blog" aria-labelledby="home-blog-title">
+        {hasPublishedPosts && <section className="home-blog" aria-labelledby="home-blog-title">
           <div className="home-blog-heading">
             <span className="section-ornament" aria-hidden="true">❦</span>
             <h2 id="home-blog-title">From the blog</h2>
@@ -279,7 +280,7 @@ function HomePage() {
               ))}
             </div>
           )}
-        </section>
+        </section>}
       </main>
     </>
   );
@@ -335,7 +336,9 @@ function InterestDetailRoute() {
     .filter((post) => !post.draft && post.interests?.includes(tile.id))
     .sort((a, b) => b.date.localeCompare(a.date));
   const intro = 'Writing and reflections related to this interest.';
-  const description = `Explore published writing about ${tile.title}.`;
+  const description = hasPublishedPosts
+    ? `Explore published writing about ${tile.title}.`
+    : `${tile.title}: ${tile.note}`;
   const imagePath = `/images/interests/${tile.image}`;
 
   return (
@@ -363,10 +366,10 @@ function InterestDetailRoute() {
               {tile.items.map((item) => <li key={item}>{item}</li>)}
             </ul>
             <p className="interest-detail-note">{tile.note}</p>
-            <p className="interest-detail-intro">{intro}</p>
+            {hasPublishedPosts && <p className="interest-detail-intro">{intro}</p>}
           </div>
         </section>
-        <section className="interest-detail-posts" aria-labelledby="interest-posts-title">
+        {hasPublishedPosts && <section className="interest-detail-posts" aria-labelledby="interest-posts-title">
           <h2 id="interest-posts-title">Writing on {tile.title}</h2>
           {posts.length > 0 ? (
             <BlogPostCards posts={posts} />
@@ -376,7 +379,7 @@ function InterestDetailRoute() {
               <Link href="/blog" className="text-link">Explore the full blog</Link>
             </div>
           )}
-        </section>
+        </section>}
       </main>
     </>
   );
@@ -491,8 +494,12 @@ function Router({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
           <Route path="/experience" component={JourneyPage} />
           <Route path="/interests/:interestId" component={InterestDetailRoute} />
           <Route path="/interests" component={InterestsPage} />
-          <Route path="/blog" component={BlogIndexPage} />
-          <Route path="/blog/:slug" component={BlogPostRoute} />
+          <Route path="/blog">
+            {hasPublishedPosts ? <BlogIndexPage /> : <Redirect to="/" replace />}
+          </Route>
+          <Route path="/blog/:slug">
+            {hasPublishedPosts ? <BlogPostRoute /> : <Redirect to="/" replace />}
+          </Route>
           <Route path="/contact" component={ContactPage} />
           <Route component={NotFoundPage} />
         </Switch>

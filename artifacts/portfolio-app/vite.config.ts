@@ -204,13 +204,20 @@ function staticRoutePages(): Plugin {
     async closeBundle() {
       const indexHtmlPath = path.join(outputDirectory, 'index.html');
       const indexHtml = await readFile(indexHtmlPath, 'utf8');
-      for (const route of ['about', 'experience', 'interests', 'blog', 'contact']) {
+      const posts = await readBlogPosts(includeDrafts);
+      const publishedPosts = posts.filter((post) => !post.draft);
+      const hasPublishedPosts = publishedPosts.length > 0;
+      const routes = ['about', 'experience', 'interests', 'contact'];
+      if (hasPublishedPosts) routes.push('blog');
+      for (const route of routes) {
         const routeDirectory = path.join(outputDirectory, route);
         await mkdir(routeDirectory, { recursive: true });
         await copyFile(indexHtmlPath, path.join(routeDirectory, 'index.html'));
       }
       for (const interest of interestTiles) {
-        const description = `Explore published writing about ${interest.title}.`;
+        const description = hasPublishedPosts
+          ? `Explore published writing about ${interest.title}.`
+          : `${interest.title}: ${interest.note}`;
         const routeDirectory = path.join(outputDirectory, 'interests', interest.id);
         await mkdir(routeDirectory, { recursive: true });
         await writeFile(
@@ -223,7 +230,7 @@ function staticRoutePages(): Plugin {
           }),
         );
       }
-      for (const post of await readBlogPosts(includeDrafts)) {
+      for (const post of hasPublishedPosts ? posts : []) {
         const postDirectory = path.join(outputDirectory, 'blog', post.slug);
         await mkdir(postDirectory, { recursive: true });
         await writeFile(path.join(postDirectory, 'index.html'), htmlForPost(indexHtml, post));

@@ -13,6 +13,8 @@ Deploy the contents of `artifacts/portfolio-app/dist/public/`. The build include
 
 ## Add a blog post
 
+The blog stays hidden until at least one post has `draft: false` (or omits `draft`). Navigation, the Home bookshelf, interest-page writing sections and static blog pages return automatically on the next build after adding a published post. While only drafts exist, `/blog` and post addresses redirect to Home. Drafts never enable the blog.
+
 Create a Markdown file in `artifacts/portfolio-app/posts/` with `title`, `date`, and `summary` front matter. `coverImage`, `tags`, `interests`, and `draft` are optional. Add one or more existing interest ids—`financial-stem`, `zambia-agriculture`, `stories`, `photography-plants`, or `textile-crafts`—to `interests` to show the post on those Interests pages. A post can be linked to multiple interests. Set `draft: true` while writing; draft posts are excluded from production builds. See `posts/how-to-write-a-post.md` for the draft template.
 
 ## Journey page and résumé
