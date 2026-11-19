@@ -2,40 +2,40 @@
   {
     "id": "financial-stem",
     "title": "Financial education & STEM",
-    "image": "financial-stem.jpg",
-    "alt": "Two women reviewing a notebook and budget charts at a sunlit wooden table beside a laptop and plants",
+    "image": "financial-stem.webp",
+    "alt": "Watercolour of a notebook with a hand-drawn chart, a calculator, coins and a small plant",
     "items": ["Women and girls’ financial education", "Women in STEM"],
     "note": "Opportunity starts with access to knowledge."
   },
   {
     "id": "zambia-agriculture",
     "title": "Home soil",
-    "image": "zambia-agriculture.jpg",
-    "alt": "A farmer walking between rows of vegetables under a wide sky with low hills in the distance",
+    "image": "home-soil.webp",
+    "alt": "Watercolour of rolling Zambian farmland with maize, a winding road and an acacia tree at dusk",
     "items": ["Agriculture", "African politics", "Home country Zambia"],
     "note": "Home, and the systems that feed and govern it."
   },
   {
     "id": "stories",
     "title": "Literature & stories",
-    "image": "stories.jpg",
-    "alt": "Open books, a notebook with a fountain pen, and a mug on a wooden windowsill in soft light",
+    "image": "stories.webp",
+    "alt": "Watercolour of a stack of old books, an open chapter and a teacup among ferns",
     "items": ["Reading fiction", "Writing and editing"],
     "note": "More than 175 novels in 2024, and around 120 in 2025."
   },
   {
     "id": "photography-plants",
     "title": "Photography & plants",
-    "image": "photography-plants.jpg",
-    "alt": "A vintage film camera on a potting bench among ferns, terracotta pots, and a green watering can",
+    "image": "photography-plants.webp",
+    "alt": "Watercolour of a vintage film camera among potted ferns and houseplants",
     "items": ["Photography", "Plants"],
     "note": "Paying attention, one leaf and frame at a time."
   },
   {
     "id": "textile-crafts",
     "title": "Sewing & crochet",
-    "image": "textile-crafts.jpg",
-    "alt": "A cream crochet square with a wooden hook, thread spools, and balls of wool on linen",
+    "image": "textile-crafts.webp",
+    "alt": "Watercolour of a half-finished crochet bag with yarn, thread spools, buttons and scissors",
     "items": ["Sewing", "Crochet"],
     "note": "Working on a mock Birkin 35."
   }

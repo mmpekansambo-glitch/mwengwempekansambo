@@ -167,7 +167,6 @@ function HomePage() {
       <main className="page-content" id="page-content">
         <section className="home-hero" aria-labelledby="home-title">
           <div className="hero-copy-column">
-            <p className="chapter-label">Chapter one</p>
             <h1 className="hero-title" id="home-title">Somewhere between<br />the ledger and<br />the <em>library</em></h1>
             <p className="hero-copy">
               I’m Mwengwe. I’m drawn to the places where capital, creativity, and people’s everyday lives meet, and to what becomes possible when they work together. I’ve followed that curiosity from Stanford to supporting the advisement of technology and media companies, and working alongside an agricultural business in Zambia, and now an MBA at Berkeley Haas.
@@ -306,7 +305,7 @@ function InterestsPage() {
               data-testid={`link-interest-${tile.id}`}
             >
               <div className="interest-media">
-                <img src={`${base}images/interests/${tile.image}`} alt={tile.alt} loading={index < 3 ? 'eager' : 'lazy'} width={1024} height={1024} />
+                <img src={`${base}images/interests/${tile.image}`} alt={tile.alt} loading={index < 3 ? 'eager' : 'lazy'} width={800} height={1000} />
               </div>
               <div className="interest-body">
                 <h2>{tile.title}</h2>
@@ -318,7 +317,7 @@ function InterestsPage() {
             </Link>
           ))}
         </section>
-        <p className="image-note">Images are AI-generated representations, not personal photographs.</p>
+        <p className="image-note">Illustrations are AI-generated.</p>
       </main>
     </>
   );
