@@ -33,7 +33,7 @@ const navItems = [
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   '/': {
-    title: 'Mwengwe Mpekansambo — Finance, stories & possibility',
+    title: 'Mwengwe Mpekansambo — Somewhere between the ledger and the library',
     description: 'Meet Mwengwe Mpekansambo, an MBA candidate at Berkeley Haas and former TMT investment banking associate.',
   },
   '/experience': {
@@ -73,7 +73,7 @@ function PageMeta({
     const socialImageUrl = new URL(override?.image ?? '/images/mwengwe-social-card.jpg', canonicalOrigin).href;
     const imageAlt = override?.image
       ? `${content.title} cover image`
-      : 'Mwengwe Mpekansambo smiling beneath vivid autumn leaves, with her name and the phrase Finance, stories and possibility.';
+      : 'Mwengwe Mpekansambo smiling on a garden bench beside palm fronds, with the words Somewhere between the ledger and the library';
     document.title = content.title;
     const setMeta = (selector: string, attribute: string, value: string) => {
       let element = document.head.querySelector(selector) as HTMLMetaElement | null;

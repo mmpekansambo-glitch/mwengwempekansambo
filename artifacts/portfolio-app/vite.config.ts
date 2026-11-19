@@ -132,6 +132,9 @@ function htmlForMetadata(
   const { title, description, canonicalPath, ogType = 'website' } = metadata;
   const canonicalUrl = `${canonicalOrigin}${canonicalPath}`;
   const imageUrl = new URL(metadata.image ?? '/images/mwengwe-social-card.jpg', canonicalOrigin).href;
+  const imageAlt = metadata.image
+    ? `${title} cover image`
+    : 'Mwengwe Mpekansambo smiling on a garden bench beside palm fronds, with the words Somewhere between the ledger and the library';
   let html = indexHtml.replace(/<title>.*?<\/title>/, `<title>${escapeAttribute(title)}</title>`);
   html = replaceMetaContent(html, 'name', 'description', description);
   html = replaceMetaContent(html, 'property', 'og:title', title);
@@ -139,11 +142,11 @@ function htmlForMetadata(
   html = replaceMetaContent(html, 'property', 'og:type', ogType);
   html = replaceMetaContent(html, 'property', 'og:url', canonicalUrl);
   html = replaceMetaContent(html, 'property', 'og:image', imageUrl);
-  html = replaceMetaContent(html, 'property', 'og:image:alt', `${title} image`);
+  html = replaceMetaContent(html, 'property', 'og:image:alt', imageAlt);
   html = replaceMetaContent(html, 'name', 'twitter:title', title);
   html = replaceMetaContent(html, 'name', 'twitter:description', description);
   html = replaceMetaContent(html, 'name', 'twitter:image', imageUrl);
-  html = replaceMetaContent(html, 'name', 'twitter:image:alt', `${title} image`);
+  html = replaceMetaContent(html, 'name', 'twitter:image:alt', imageAlt);
   return html.replace(
     /(<link rel="canonical" href=")[^"]*(" \/>)/,
     (_match, prefix: string, suffix: string) => `${prefix}${escapeAttribute(canonicalUrl)}${suffix}`,
