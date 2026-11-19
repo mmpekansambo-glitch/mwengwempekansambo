@@ -42,7 +42,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   },
   '/contact': {
     title: 'Contact — Mwengwe Mpekansambo',
-    description: 'Get in touch with Mwengwe Mpekansambo via her approved public Stanford alumni email.',
+    description: 'Get in touch with Mwengwe Mpekansambo on LinkedIn.',
   },
   '404': {
     title: 'Page not found — Mwengwe Mpekansambo',
@@ -129,11 +129,11 @@ function Header({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
   );
 }
 
-function Footer({ isHome }: { isHome: boolean }) {
+function Footer() {
   return (
     <footer className="site-footer">
       <span className="footer-note"><Leaf size={14} strokeWidth={1.6} /> Rooted in Africa, growing everywhere.</span>
-      <span>{isHome ? '© Mwengwe Mpekansambo' : `© ${new Date().getFullYear()} Mwengwe Mpekansambo`}</span>
+      <span>© {new Date().getFullYear()} Mwengwe Mpekansambo</span>
     </footer>
   );
 }
@@ -254,7 +254,7 @@ function AboutPage() {
               I worked in TMT investment banking at Jefferies, advising on financial transactions and capital-raising. My interests also reach beyond finance: I’m passionate about women’s financial education, particularly in Zambia, women’s participation in STEM, and ethical agriculture.
             </p>
           </section>
-          <p><Link href="/experience" className="text-link">Explore my journey</Link></p>
+          <p className="about-ending-link"><Link href="/experience" className="text-link">Explore my journey</Link></p>
       </main>
     </>
   );
@@ -304,17 +304,17 @@ function InterestsPage() {
 const journeyEntries: Array<{
   organization: string;
   description: string;
-  endDate?: string;
-  endDateTime?: string;
-  endDateQualifier?: string;
+  dateLabel?: string;
+  dateTime?: string;
+  dateQualifier?: string;
 }> = [
-  { organization: 'UC Berkeley Haas', description: 'MBA candidate.', endDate: 'May 2027', endDateTime: '2027-05', endDateQualifier: 'Expected' },
-  { organization: 'Gen Digital', description: 'Associate Intern, Corporate Development & Strategic Partnerships, analyzing fintech acquisitions and exploring agentic AI.', endDate: 'August 2026', endDateTime: '2026-08' },
-  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Associate, closing 10 M&A, debt, and equity transactions totaling $60B+.', endDate: 'June 2025', endDateTime: '2025-06' },
-  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Analyst, supporting financial advisory, recruitment, and inclusion initiatives.', endDate: 'May 2024', endDateTime: '2024-05' },
-  { organization: 'Stanford University', description: 'B.A. in Economics with a minor in Creative Writing.', endDate: 'June 2022', endDateTime: '2022-06' },
-  { organization: 'Hotchkis & Wiley', description: 'Asset Management Intern, researching industry risks and presenting an investment pitch on Ingredion.', endDate: 'August 2021', endDateTime: '2021-08' },
-  { organization: 'Mwedi Innovations Limited', description: 'Director and co-founder of an agriculture company in Zambia focused on local sourcing and ethical produce management.' },
+  { organization: 'UC Berkeley Haas', description: 'MBA candidate.', dateLabel: 'May 2027', dateTime: '2027-05', dateQualifier: 'Expected' },
+  { organization: 'Gen Digital', description: 'Associate Intern, Corporate Development & Strategic Partnerships, analyzing fintech acquisitions and exploring agentic AI.', dateLabel: 'August 2026', dateTime: '2026-08' },
+  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Associate, closing 10 M&A, debt, and equity transactions totaling $60B+.', dateLabel: 'June 2025', dateTime: '2025-06' },
+  { organization: 'Jefferies LLC', description: 'TMT Investment Banking Analyst, supporting financial advisory, recruitment, and inclusion initiatives.', dateLabel: 'May 2024', dateTime: '2024-05' },
+  { organization: 'Stanford University', description: 'B.A. in Economics with a minor in Creative Writing.', dateLabel: 'June 2022', dateTime: '2022-06' },
+  { organization: 'Hotchkis & Wiley', description: 'Asset Management Intern, researching industry risks and presenting an investment pitch on Ingredion.', dateLabel: 'August 2021', dateTime: '2021-08' },
+  { organization: 'Mwedi Innovations Limited', description: 'Director and co-founder of an agriculture company in Zambia focused on local sourcing and ethical produce management.', dateLabel: 'Ongoing' },
 ];
 
 function JourneyPage() {
@@ -328,22 +328,24 @@ function JourneyPage() {
           <p>Education, investing, advisory, and company building—a few milestones along the way.</p>
         </section>
         <ol className="journey-list" aria-label="Education and professional experience" role="list">
-          {journeyEntries.map(({ organization, description, endDate, endDateTime, endDateQualifier }, index) => (
+          {journeyEntries.map(({ organization, description, dateLabel, dateTime, dateQualifier }, index) => (
             <li
-              className={`journey-entry ${endDate ? 'journey-entry--dated' : 'journey-entry--undated'}`}
+              className={`journey-entry ${dateTime ? 'journey-entry--dated' : 'journey-entry--undated'}`}
               key={`${organization}-${index}`}
             >
               <p><strong>{organization}</strong> — {description}</p>
-              {endDate && endDateTime && (
+              {dateLabel && (
                 <div className="journey-date-group">
-                  <time className="journey-end-date" dateTime={endDateTime}>{endDate}</time>
-                  {endDateQualifier && <span className="journey-date-qualifier">{endDateQualifier}</span>}
+                  {dateTime
+                    ? <time className="journey-end-date" dateTime={dateTime}>{dateLabel}</time>
+                    : <span className="journey-end-date">{dateLabel}</span>}
+                  {dateQualifier && <span className="journey-date-qualifier">{dateQualifier}</span>}
                 </div>
               )}
             </li>
           ))}
         </ol>
-        <p className="journey-note">Dated milestones are listed newest first; arrows point toward more recent chapters. Mwedi Innovations has no date listed.</p>
+        <p className="journey-note">Listed newest first.</p>
       </main>
     </>
   );
@@ -394,7 +396,6 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function Router({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
-  const [location] = useLocation();
   return (
     <div className="portfolio-shell">
       <a className="skip-link" href="#page-content">Skip to main content</a>
@@ -409,7 +410,7 @@ function Router({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
           <Route component={NotFoundPage} />
         </Switch>
       </RoutedErrorBoundary>
-      <Footer isHome={location === '/'} />
+      <Footer />
     </div>
   );
 }
