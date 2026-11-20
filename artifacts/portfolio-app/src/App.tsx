@@ -42,7 +42,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   },
   '/interests': {
     title: 'Interests — Mwengwe Mpekansambo',
-    description: 'Interests beyond finance: financial education and STEM, Zambia and agriculture, literature, photography and plants, sewing and crochet.',
+    description: 'Interests beyond finance: financial education and STEM, home soil (Zambia, agriculture and politics), literature, photography and plants, sewing and crochet.',
   },
   '/blog': {
     title: 'Blog — Mwengwe Mpekansambo',
